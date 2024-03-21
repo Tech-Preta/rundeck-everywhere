@@ -29,8 +29,8 @@ deb-src https://packages.rundeck.com/pagerduty/rundeck/any/ any main
 Atualize o cache do apt e instale:
 
 ```
-sudo apt-get update
-sudo apt-get install rundeck
+sudo apt-get update -y
+sudo apt-get install rundeck -y
 ```
 
 # Iniciando o Rundeck

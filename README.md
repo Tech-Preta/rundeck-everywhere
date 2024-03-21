@@ -6,7 +6,7 @@ Escolha a opção de instalação que melhor se adequa às suas necessidades
 
 Siga os passos abaixo para instalar o Rundeck localmente.
 
-[Guia de Instalação Local](https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere/-/blob/main/local/install-local.md)
+[Guia de Instalação Local](https://github.com/Tech-Preta/rundeck-everywhere/blob/main/local/install.md)
 
 ## Instalação via Docker
 
@@ -14,13 +14,13 @@ Siga os passos abaixo para instalar o Rundeck localmente.
 
 Certifique-se de ter o Docker instalado em seu sistema.
 
-[Instalando o Docker](https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere/-/blob/main/docker/install-docker.md) 
+[Instalando o Docker](https://github.com/Tech-Preta/rundeck-everywhere/blob/main/docker/install_docker.md) 
 
 ### Procedimento de Instalação com Docker
 
 Siga os passos abaixo para instalar o Rundeck usando Docker.
 
-[Guia de Instalação com Docker](https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere/-/blob/main/docker/install-rundeck.md) 
+[Guia de Instalação com Docker](https://github.com/Tech-Preta/rundeck-everywhere/blob/main/docker/rundeck_in_docker.md) 
 
 ## Instalação via Docker Compose
 
@@ -55,7 +55,6 @@ Siga os passos abaixo para instalar o Rundeck usando manifestos do Kubernetes.
 cd kubernetes/manifests
 
 kubectl apply -f .
-
 ```
 
 ## Instalação via Helm
@@ -68,13 +67,13 @@ Certifique-se de ter o Helm instalado e configurado em seu ambiente.
 
 Siga os passos abaixo para instalar o Rundeck Anywhere usando Helm.
 
-[Guia de Instalação com Helm](https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere/-/blob/main/kubernetes/helm/rundeck/README.md).
+[Guia de Instalação com Helm](https://github.com/Tech-Preta/rundeck-everywhere/blob/main/kubernetes/HELM.md).
 
 
 ```
-git clone https://gitlab.com/jackexperts/clientes/globalweb/projetonoc-centralizado/rundeck-anywhere.git
+git clone https://github.com/Tech-Preta/rundeck-everywhere.git
 
-cd helm/rundeck
+cd charts/rundeck
 
 helm install nome_do_release -n nome_do_namespace .
 
