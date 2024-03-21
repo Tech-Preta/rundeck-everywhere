@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  rundeck:
+    image: rundeck/rundeck:4.17.0
+    ports:
+      - "4440:4440"
+    environment:
+      RUNDECK_GRAILS_URL: ${RUNDECK_GRAILS_URL}
+      RUNDECK_JAAS_FILE_FLAG: ${RUNDECK_JAAS_FILE_FLAG}
+      RUNDECK_JAAS_LDAP_FLAG: ${RUNDECK_JAAS_LDAP_FLAG}
+      RUNDECK_JAAS_LDAP_BINDDN: ${RUNDECK_JAAS_LDAP_BINDDN}
+      RUNDECK_JAAS_LDAP_BINDPASSWORD: ${RUNDECK_JAAS_LDAP_BINDPASSWORD}
+      RUNDECK_JAAS_LDAP_PROVIDERURL: ${RUNDECK_JAAS_LDAP_PROVIDERURL}
+      RUNDECK_JAAS_LDAP_ROLEBASEDN: ${RUNDECK_JAAS_LDAP_ROLEBASEDN}
+      RUNDECK_JAAS_LDAP_ROLEMEMBERATTRIBUTE: ${RUNDECK_JAAS_LDAP_ROLEMEMBERATTRIBUTE}
+      RUNDECK_JAAS_LDAP_ROLENAMEATTRIBUTE: ${RUNDECK_JAAS_LDAP_ROLENAMEATTRIBUTE}
+      RUNDECK_JAAS_LDAP_ROLEOBJECTCLASS: ${RUNDECK_JAAS_LDAP_ROLEOBJECTCLASS}
+      RUNDECK_JAAS_LDAP_USERBASEDN: ${RUNDECK_JAAS_LDAP_USERBASEDN}
+      RUNDECK_JAAS_LDAP_USERIDATTRIBUTE: ${RUNDECK_JAAS_LDAP_USERIDATTRIBUTE}
+      RUNDECK_JAAS_LDAP_USERRDNATTRIBUTE: ${RUNDECK_JAAS_LDAP_USERRDNATTRIBUTE}
+      RUNDECK_JAAS_MODULES_0: ${RUNDECK_JAAS_MODULES_0}
+      RUNDECK_JAAS_MODULES_1: ${RUNDECK_JAAS_MODULES_1}
+      RUNDECK_LOGGING_STRATEGY: ${RUNDECK_LOGGING_STRATEGY}
+    volumes:
+      - ./rundeck-data:/home/rundeck/server/data
+    #   - ./rundeck-config/realm.properties:/home/rundeck/server/config/realm.properties # Persintência para configurações do Rundeck
+      
+    # restart: always
+    depends_on:
+      - ldap
+
+  ldap:
+    image: osixia/openldap:1.5.0
+    environment:
+      LDAP_ORGANISATION: ${LDAP_ORGANISATION}
+      LDAP_DOMAIN: ${LDAP_DOMAIN}
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+      KEEP_EXISTING_CONFIG: ${KEEP_EXISTING_CONFIG}
+    ports:
+      - "389:389"
+    volumes:
+      - ./ldap/data:/var/lib/ldap
+      - ./ldap/config-data:/etc/ldap/slapd.d
+      - ./ldap/certs:/container/service/slapd/assets/certs
+    # restart: always
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:stable
+    ports:
+      - "8080:80"
+    environment:
+      PHPLDAPADMIN_HTTPS: ${PHPLDAPADMIN_HTTPS}
+      PHPLDAPADMIN_LDAP_HOSTS: ${PHPLDAPADMIN_LDAP_HOSTS}
+    
+    # restart: always
+    
+    depends_on:
+      - ldap

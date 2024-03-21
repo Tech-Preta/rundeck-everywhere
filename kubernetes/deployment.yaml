@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rundeck
+  namespace: default
+  labels:
+    app: rundeck
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rundeck
+  template:
+    metadata:
+      labels:
+        app: rundeck
+    spec:
+      containers:
+      - name: rundeck
+        image: rundeck/rundeck:4.17.0
+        env:
+          - name: RUNDECK_GRAILS_URL
+            value: "http://rundeck.example.com"
+          - name: RUNDECK_SECURITY_SETUP
+            value: "false"
+          - name: RUNDECK_LOGGING_STRATEGY
+            value: "CONSOLE"
+          - name: RUNDECK_SERVER_FORWARDED
+            value: "true"
+          - name: RUNDECK_API_TOKENS_DURATION_MAX
+            value: "0"  
+        volumeMounts:
+        - name: rundeck-data
+          mountPath: /var/lib/rundeck/data
+      volumes:
+      - name: rundeck-data
+        persistentVolumeClaim:
+          claimName: rundeck-data-pvc

@@ -1,0 +1,31 @@
+description: Permissões dentro do projeto
+context:
+  project: 'DEV' # especificando o projeto 'dev'
+for:
+  resource:
+    - equals:
+        kind: job
+      allow: [create,read,update,delete,run,runAs,kill,killAs] # permissões para trabalhar com jobs
+    - equals:
+        kind: node
+      allow: [read,run,refresh] # permissões para trabalhar com nodes
+    - equals:
+        kind: event
+      allow: [read,create] # permissões para eventos
+  storage:
+    - allow: [read,create,update,delete] # permite acessar o key storage do projeto 
+by:
+  group: dev # atribuir permissões ao grupo 'dev'
+
+---
+
+description: Permite visualizar, exportar e configurar o projeto.
+context:
+  application: 'rundeck'
+for:
+  project:
+    - match:
+        name: 'DEV'
+      allow: [read,export,configure] # allow full access of all projects or use 'admin'
+by:
+  group: dev

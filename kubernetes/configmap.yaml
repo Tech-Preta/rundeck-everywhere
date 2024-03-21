@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rundeck-config
+  namespace: default
+  labels:
+    app: rundeck
+data:
+  rundeck-config.properties: |
+    rundeck.server.name = Meu Rundeck
+#    rundeck.server.hostname = rundeck.example.com
+#    rundeck.security.authentication.name = ldap
+#    rundeck.security.authentication.config.file = /etc/rundeck/ldap.properties
+#    rundeck.log4j.config.file = /etc/rundeck/log4j.properties
+#    dataSource.url = jdbc:h2:file:/var/lib/rundeck/data/rundeckdb
+#    dataSource.driverClassName = org.h2.Driver
+#    dataSource.username = sa
+#    dataSource.password = password
+#    grails.mail.host = smtp.example.com
+#    grails.mail.port = 587
+#    grails.mail.username = user@example.com
+#    grails.mail.password = secret
+
+    # Adicione outras configurações conforme necessário
